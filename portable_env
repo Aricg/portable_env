@@ -3,7 +3,7 @@
 #TODO place the dot files in their own dir and rm the dir if it is emptly (last one out)
 #TODO see if I can get vundle enabled somewhat easily
 #TODO ssh -o SendEnv=MYVAR server.example.com mycommand (send envar to generate the sessionid) 
-#
+#Sometimes ssh restrics SendEnv... look into this first. 
 
 #create a random var so that multiuser works.
 session="$RANDOM"
