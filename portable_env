@@ -1,0 +1,79 @@
+#!/bin/bash
+#TODO use rsync ..but how do i rename the files?
+#TODO place the dot files in their own dir and rm the dir if it is emptly (last one out)
+#TODO see if I can get vundle enabled somewhat easily
+#TODO ssh -o SendEnv=MYVAR server.example.com mycommand (send envar to generate the sessionid) 
+#
+
+#create a random var so that multiuser works.
+session="$RANDOM"
+
+#if you call $0 -s this runs.
+setup () {
+dir=$(cd $(dirname $0); pwd)
+
+if ! [ -d ~/.portable_env ]; then
+  mkdir ~/.portable_env || echo "error creating directory"
+
+for x in "$dir"/dotfiles/*;
+  do
+    if [[ "$x" ]]; then
+      ln -s "$x" ~/.portable_env || echo "failed to create symlink $x"
+    fi
+  done
+
+  if ! [[ /user/bin/ss ]]; then
+    ln -s "$dir"/"$0" /user/bin/ss || echo "failed to create symlink "$dir"/"$0""
+  fi
+fi
+exit 0
+}
+
+
+ss () {
+
+  if ! [[ "$@" == *@* ]]; then
+    connect="root@"$@""
+  else
+    connect="$@"
+  fi
+
+    for x in ~/.portable_env/*
+    do
+    scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null
+    done
+
+#Let's do this
+ssh -t "$connect" "echo "$session" > ~/.session; bash --noprofile --rcfile ~/."$session"bashrc" 
+
+}
+
+usage () {
+  cat << EOF
+
+Description: A wrapper for ssh that uses dotfiles/bashrc as your rcfile
+Setup: "$0" -s 
+Usage: "$0" user@some.remote.machine.net
+
+If no user is give this script assumes root@some.remote.machine.net
+scp's everything in dotfiles/* to the remote machine 
+call additional scripts from dotfiles/bashrc
+This script traps the files it copies and rm's them on exit
+
+EOF
+exit 1
+}
+
+if [[ -z "$@" ]]; then usage
+fi
+
+
+while getopts "s" OPTION
+do
+  case $OPTION in
+    s ) setup ;
+  esac
+done
+
+ss "$@"
+        
