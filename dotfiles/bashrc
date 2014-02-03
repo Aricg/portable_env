@@ -5,7 +5,7 @@ if [[ -f ~/.session ]]; then
   rm -f ~/.session
   session=$(< ~/."$session"sessionid)
 fi
-#tap all files on exit
+#trap all files on exit
 for x in ~/".""$session"*
 do
   traps+="rm $x;"
