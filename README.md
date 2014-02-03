@@ -21,7 +21,7 @@ So that I can take my bash and vim rc's with me wherever I Go.
 
 Notes
 =====
-* If no user is give this script assumes root@some.remote.machine.net
+* If no user is given this script assumes root@some.remote.machine.net
 * scp's everything in dotfiles/* to the remote machine ~/.$RANDOM.nameofdotfile
 * call additional scripts from dotfiles/bashrc
 * This script traps all files than it copies and removes them on exit
