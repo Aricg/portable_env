@@ -25,7 +25,7 @@ Notes
 * scp's everything in dotfiles/* to the remote machine ~/.$RANDOM.nameofdotfile
 * call additional scripts from dotfiles/bashrc
 * This script traps all files than it copies and removes them on exit
-* running setup creates ~/.portable_env, symlinks dotfiles/* into ~/.portable_env and creates symlinks the script portable_env to /usr/bin/ss
+* running setup creates ~/.portable_env, symlinks dotfiles/* into ~/.portable_env and symlinks the script portable_env to /usr/bin/ss
 * Tested on mavericks. but I'm almost certain it will run on debian/centos and their ilk
 
 License
