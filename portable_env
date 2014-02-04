@@ -38,7 +38,7 @@ ss () {
     echo "No session genrated, exiting"; exit 1
   fi
   if ! [[ -r ~/.portable_env/bashrc ]]; then 
-    echo "Can find bashrc please run setup first"; exit 1
+    echo "Can't find bashrc please run setup first"; exit 1
   fi
 
   if ! [[ "$@" == *@* ]]; then
