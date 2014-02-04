@@ -47,6 +47,7 @@ ss () {
     connect="$@"
   fi
 
+  #copy files.
       echo -n "Copying Files ."
     for x in ~/.portable_env/*
     do
@@ -55,7 +56,8 @@ ss () {
     done
       echo " "
 
-#Let's do this
+  #Let's do this
+
 ssh -t "$connect" "echo "$session" > ~/.session && bash --noprofile --rcfile ~/."$session"bashrc" 
 
 }

@@ -5,13 +5,9 @@ if [[ -f ~/.session ]]; then
   rm -f ~/.session
   session=$(< ~/."$session"sessionid)
 fi
-#trap all files on exit
-for x in ~/".""$session"*
-do
-  traps+="rm $x;"
-done
 
-trap "$traps" EXIT
+#trap all files on exit
+trap "rm -f ~/"."$session"* EXIT
 ######## End Stuff needed for portable_env to work #####
 
 ###BEGIN Portable rcfile###
