@@ -33,9 +33,12 @@ exit 0
 
 
 ss () {
-  #sanity check
+  #sanity checks
   if [[ -z $session ]]; then 
     echo "No session genrated, exiting"; exit 1
+  fi
+  if ! [[ -r ~/.portable_env/bashrc ]]; then 
+    echo "Can find bashrc please run setup first"; exit 1
   fi
 
   if ! [[ "$@" == *@* ]]; then
@@ -44,10 +47,13 @@ ss () {
     connect="$@"
   fi
 
+      echo -n "Copying Files ."
     for x in ~/.portable_env/*
     do
       scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null
+      echo -n "."
     done
+      echo " "
 
 #Let's do this
 ssh -t "$connect" "echo "$session" > ~/.session && bash --noprofile --rcfile ~/."$session"bashrc" 
