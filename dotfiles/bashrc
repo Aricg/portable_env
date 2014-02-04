@@ -6,8 +6,10 @@ if [[ -f ~/.session ]]; then
   session=$(< ~/."$session"sessionid)
 fi
 
-#trap all files on exit
+#trap all files on exit only trap if session is set 
+if ! [[ -z "$session" ]]
 trap "rm -f ~/"."$session"* EXIT
+fi
 ######## End Stuff needed for portable_env to work #####
 
 ###BEGIN Portable rcfile###
