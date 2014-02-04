@@ -1,7 +1,7 @@
 portable_env
 ============
 
-Description: A wrapper for ssh that scp straps your custom (bash) rcfile
+Description: A wrapper for ssh that scp straps your custom (bash) rcfile 
 
 ```
 Setup: "./portable_env" -s
@@ -21,11 +21,12 @@ So that I can take my bash and vim rc's with me wherever I Go.
 
 Notes
 =====
+* Half of the logic is at the top of dotfile/bashrc look there. 
 * If no user is given this script assumes root@some.remote.machine.net
 * scp's everything in dotfiles/* to the remote machine ~/.$RANDOM.nameofdotfile
 * call additional scripts from dotfiles/bashrc
 * This script traps all files than it copies and removes them on exit
-* running setup creates ~/.portable_env, symlinks dotfiles/* into ~/.portable_env and creates symlinks the script portable_env to /usr/bin/ss
+* running setup creates ~/.portable_env, symlinks dotfiles/* into ~/.portable_env and symlinks the script portable_env to /usr/bin/ss
 * Tested on mavericks. but I'm almost certain it will run on debian/centos and their ilk
 
 License
