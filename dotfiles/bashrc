@@ -7,7 +7,7 @@ if [[ -f ~/.session ]]; then
 fi
 
 #trap all files on exit only trap if session is set 
-if ! [[ -z "$session" ]]
+if ! [[ -z "$session" ]]; then
 trap "rm -f ~/"."$session"* EXIT
 fi
 ######## End Stuff needed for portable_env to work #####
