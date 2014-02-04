@@ -6,7 +6,9 @@
 #
 
 #create a random var so that multiuser works.
+#unset session
 session="$RANDOM"
+
 
 #if you call $0 -s this runs.
 setup () {
@@ -31,6 +33,10 @@ exit 0
 
 
 ss () {
+  #sanity check
+  if [[ -z $session ]]; then 
+    echo "No session genrated, exiting"; exit 1
+  fi
 
   if ! [[ "$@" == *@* ]]; then
     connect="root@"$@""
@@ -40,11 +46,11 @@ ss () {
 
     for x in ~/.portable_env/*
     do
-    scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null
+      scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null
     done
 
 #Let's do this
-ssh -t "$connect" "echo "$session" > ~/.session; bash --noprofile --rcfile ~/."$session"bashrc" 
+ssh -t "$connect" "echo "$session" > ~/.session && bash --noprofile --rcfile ~/."$session"bashrc" 
 
 }
 
