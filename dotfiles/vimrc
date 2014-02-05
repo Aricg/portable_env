@@ -18,3 +18,4 @@ noremap <f4>  :set syntax=sh<return>
 inoremap <f4> :set syntax=sh<return>
 nnoremap Q <nop>
 map! ii <Esc> " map ii to Esc
+set shell=bash
