@@ -10,7 +10,7 @@ Usage: "/usr/bin/ss" user@some.remote.machine.net
 
 Why I made this
 ==============
-So that I can take my bash and vim rc's with me wherever I Go.
+So that I can take my bash and vim rc's with me wherever I go.
 
 * Can't live without set -o vi
 * I like my PS1
