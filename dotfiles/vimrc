@@ -13,7 +13,8 @@ set showmatch
 set relativenumber
 set shell=bash
 set backspace=indent,eol,start
-
+set hlsearch
+" :nohl to clear
 
 nnoremap <F5> :set invpaste paste?<CR>
 set pastetoggle=<F5>
@@ -24,4 +25,11 @@ inoremap <f3> :set relativenumber!<return>
 noremap <f4>  :set syntax=sh<return>
 inoremap <f4> :set syntax=sh<return>
 nnoremap Q <nop>
-map! ii <Esc> " map ii to Esc
+
+"Visually change lines with ctrl up and down
+nnoremap <silent> <C-Up> gk
+nnoremap <silent> <C-Down> gj
+
+"Change splits with ctrl left and right
+nnoremap <silent> <C-Left> <C-w><C-w>
+nnoremap <silent> <C-Right> <C-w><C-w>

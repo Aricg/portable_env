@@ -51,6 +51,8 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ls='ls -F'
 alias grep='grep --color=auto'
+alias g='grep --color=auto'
+alias h='history'
 
 
 if [ -x /usr/bin/dircolors ]; then
