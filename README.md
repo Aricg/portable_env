@@ -1,7 +1,7 @@
-portable_env
-============
+portable environment
+====================
 
-Description: A wrapper for ssh that scp straps your custom (bash) rcfile 
+Description: A wrapper for ssh that scp straps your custom (bash) rcfile and any other dot files or scripts you want sent ahead of you.  
 
 ```
 Setup: "./portable_env" -s
