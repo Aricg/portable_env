@@ -11,7 +11,9 @@ session="$RANDOM"
 
 
 #if you call $0 -s this runs.
-setup () {
+setup () 
+{
+
 dir=$(cd $(dirname $0); pwd)
 
 if ! [ -d ~/.portable_env ]; then
@@ -32,7 +34,8 @@ exit 0
 }
 
 
-ss () {
+ss () 
+{
   #sanity checks
   if [[ -z $session ]]; then 
     echo "No session genrated, exiting"; exit 1
@@ -40,29 +43,28 @@ ss () {
   if ! [[ -r ~/.portable_env/bashrc ]]; then 
     echo "Can't find bashrc please run setup first"; exit 1
   fi
-
   if ! [[ "$@" == *@* ]]; then
-    connect="root@"$@""
+    connect="${@:+root@$@}"
   else
     connect="$@"
   fi
 
   #copy files.
-      echo -n "Copying Files ."
-    for x in ~/.portable_env/*
-    do
-      scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null
-      echo -n "."
-    done
-      echo " "
+  echo -n "Copying Files ."
+  for x in ~/.portable_env/*
+   do
+    scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null && echo -n "."
+  done
+  echo
 
-  #Let's do this
-
+#Let's do this
 ssh -t "$connect" "echo "$session" > ~/.session && bash --noprofile --rcfile ~/."$session"bashrc" 
 
 }
 
-usage () {
+usage () 
+{
+  
   cat << EOF
 
 Description: A wrapper for ssh that uses dotfiles/bashrc as your rcfile

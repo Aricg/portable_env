@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ if ! [[ "$@" == *@* ]]; then
+   connect="${@:+root@$@}"
+ else
+   connect="$@"
+ fi
+echo "$connect"
