@@ -35,6 +35,8 @@ fi
 #set vi mode for glory
 set -o vi
 export EDITOR='vim'
+#use vim to view man pages
+export MANPAGER="/bin/sh -c \"col -b | vim -u ~/.$session\"vimrc\" -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 #I like to know the load when I login. 
 echo "Load: $(uptime  | awk -F ":" '{print $NF}')"
