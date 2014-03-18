@@ -54,6 +54,9 @@ ss ()
   for x in ~/.portable_env/*
    do
     scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null && echo -n "."
+    if [[ $? != 0 ]]; then echo "Could not connect" &&  exit 1
+    fi
+
   done
   echo
 
