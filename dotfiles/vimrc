@@ -1,27 +1,35 @@
 " Aric's portable vimrc. no vundle sorry :(
-
-filetype off                   " required!
+filetype off                   
 syntax on
 
-set t_Co=256
-set nocompatible               " be iMproved
-set scrolloff=999
 set ts=2
 set shiftwidth=2
 set expandtab
 set showmatch
-set relativenumber
+
+set t_Co=256
+set nocompatible              
+set scrolloff=99
 set shell=bash
 set backspace=indent,eol,start
 set hlsearch
+
+if has("relativenumber")
+  set relativenumber
+  noremap <f3> :set relativenumber!<return>
+  inoremap <f3> :set relativenumber!<return>
+else
+  set number
+  noremap <f3> :set nonumber!<return>
+  inoremap <f3> :set nonumber!<return>
+endif
+
 " :nohl to clear
 
 nnoremap <F5> :set invpaste paste?<CR>
 set pastetoggle=<F5>
 set showmode
 
-noremap <f3> :set relativenumber!<return>
-inoremap <f3> :set relativenumber!<return>
 noremap <f4>  :set syntax=sh<return>
 inoremap <f4> :set syntax=sh<return>
 nnoremap Q <nop>
