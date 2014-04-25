@@ -8,7 +8,7 @@ fi
 
 #trap all files on exit only trap if session is set 
 if ! [[ -z "$session" ]]; then
-trap "rm -f ~/"."$session"* EXIT
+trap "rm -f ~/"."$session"* EXIT SIGHUP SIGINT SIGTERM
 fi
 ######## End Stuff needed for portable_env to work #####
 
@@ -55,41 +55,41 @@ alias ls='ls -F'
 alias grep='grep --color=auto'
 alias g='grep --color=auto'
 alias h='history'
-
-#Improve nagiavation with cd back and flip
-############################
-pushd()
-{
-  if [ $# -eq 0 ]; then
-    DIR="${HOME}"
-  else
-    DIR="$1"
-  fi
-
-  builtin pushd "${DIR}" > /dev/null
-  echo -n "DIRSTACK: "
-  dirs
-}
-
-pushd_builtin()
-{
-  builtin pushd > /dev/null
-  echo -n "DIRSTACK: "
-  dirs
-}
-
-popd()
-{
-  builtin popd > /dev/null
-  echo -n "DIRSTACK: "
-  dirs
-}
-
-alias cd='pushd'
-alias back='popd'
-alias flip='pushd_builtin'
-############################
-
+#
+##Improve nagiavation with cd back and flip
+#############################
+#pushd()
+#{
+#  if [ $# -eq 0 ]; then
+#    DIR="${HOME}"
+#  else
+#    DIR="$1"
+#  fi
+#
+#  builtin pushd "${DIR}" > /dev/null
+#  echo -n "DIRSTACK: "
+#  dirs
+#}
+#
+#pushd_builtin()
+#{
+#  builtin pushd > /dev/null
+#  echo -n "DIRSTACK: "
+#  dirs
+#}
+#
+#popd()
+#{
+#  builtin popd > /dev/null
+#  echo -n "DIRSTACK: "
+#  dirs
+#}
+#
+#alias cd='pushd'
+#alias back='popd'
+#alias flip='pushd_builtin'
+#############################
+#
 
 if [ -x /usr/bin/dircolors ]; then
 test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
