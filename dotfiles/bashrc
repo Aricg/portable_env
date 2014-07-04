@@ -46,6 +46,11 @@ function lg {
 command git log --graph --pretty=format:'%Cred%h%Creset - %ce %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit --date=relative "$@"
 }
 
+function lt() { ls -ltrsa "$@" | tail; }
+function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
+function fname() { find . -iname "*$@*"; }
+function remove_lines_from() { grep -F -x -v -f $2 $1; }
+function mcd() { mkdir $1 && cd $1; }
 
 alias sudo='sudo '
 alias ll='ls -alF'
