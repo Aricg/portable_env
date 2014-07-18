@@ -52,7 +52,9 @@ function fname() { find . -iname "*$@*"; }
 function remove_lines_from() { grep -F -x -v -f $2 $1; }
 function mcd() { mkdir $1 && cd $1; }
 
-alias sudo='sudo '
+alias v='vim'
+#only need this on osx
+#alias sudo='sudo '
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
