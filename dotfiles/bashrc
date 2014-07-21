@@ -62,6 +62,8 @@ alias ls='ls -F'
 alias grep='grep --color=auto'
 alias g='grep --color=auto'
 alias h='history'
+alias gits='puppet parser validate $(git ls-files --others --exclude-standard) \
+&& git status'
 #
 ##Improve nagiavation with cd back and flip
 #############################
