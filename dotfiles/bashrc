@@ -26,17 +26,26 @@ fi
 
 #example alias (for your vimrc)
 if [[ -f ~/."$session"vimrc ]]; then
-    alias v="vim -u ~/."$session"vimrc"
+    alias v="vim"
+    export MYVIMRC=~/."$session"vimrc
 fi
+
+complete -F _known_hosts ssh
 
 
 ##begin my personal bashrc in earnest (im not going to maintain two repos, if you like it fork it.)
+
+
+#better directory naviation
+source ${HOME}/."$session"acd_func.sh
+
 
 #set vi mode for glory
 set -o vi
 export EDITOR='vim'
 #use vim to view man pages
-export MANPAGER="/bin/sh -c \"col -b | vim -u ~/.$session\"vimrc\" -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+#This breaks on some systems, commenting out for now
+#export MANPAGER="/bin/sh -c \"col -b | vim -u ~/.$session\"vimrc\" -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 #I like to know the load when I login. 
 echo "Load: $(uptime  | awk -F ":" '{print $NF}')"
