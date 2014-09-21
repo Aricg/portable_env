@@ -1,5 +1,4 @@
 #!/bin/bash
-#TODO rsync ..but how do i rename the files?
 #TODO place the dot files in their own dir and rm the dir if it is emptly (last one out)
 #TODO see if I can get vundle enabled somewhat easily
 #TODO ssh -o SendEnv=MYVAR server.example.com mycommand (send envar to generate the sessionid) 
@@ -8,7 +7,6 @@
 #create a random var so that multiuser works.
 #unset session
 session="$RANDOM"
-
 
 #if you call $0 -s this runs.
 setup () 
@@ -25,16 +23,25 @@ for x in "$dir"/dotfiles/*;
       ln -s "$x" ~/.portable_env || echo "failed to create symlink $x"
     fi
   done
-
-  if ! [[ /user/bin/ss ]]; then
-    ln -s "$dir"/"$0" /user/bin/ss || echo "failed to create symlink "$dir"/"$0""
-  fi
 fi
+
+  if ! [[ -d ~/bin ]]; then
+    mkdir ~/bin
+  fi
+
+  if ! which cs &> /dev/null; then
+    ln -s "$dir"/"$0" ~/bin/cs &> /dev/null || echo "failed to create symlink "$dir"/"$0""
+  fi
+
+  if [[ $(which cs) ]]; then
+    echo "instalation complete"
+  fi
+
 exit 0
 }
 
 
-ss () 
+cs () 
 {
   #sanity checks
   if [[ -z $session ]]; then 
@@ -94,5 +101,5 @@ do
   esac
 done
 
-ss "$@"
+cs "$@"
         
