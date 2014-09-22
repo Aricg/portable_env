@@ -59,7 +59,7 @@ cs ()
   mkdir "$session"
   echo "$session" > ~/.session 
   session="$session" 
-  echo $'"$(cd ~/.portable_env && tar -chz * | xxd -ps)"' | xxd -ps -r | tar mxz -C "'$session'"/
+  echo '"$(cd ~/.portable_env && tar -chz * | xxd -ps)"' | xxd -ps -r | tar mxz -C "'$session'"/
   bash --noprofile --rcfile ~/"$session"/bashrc
   "
 }

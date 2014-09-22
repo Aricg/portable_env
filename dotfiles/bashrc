@@ -10,7 +10,7 @@ fi
 #trap all files on exit only trap if session is set 
 if ! [[ -d "~/"$session"" ]]; then
   trap "rm -rf ~/$session" EXIT SIGTERM SIGHUP
-  echo "trap is: trap -s ~/$session EXIT SIGTERM SIGHUP"
+  echo "trap 2is: trap -s ~/$session EXIT SIGTERM SIGHUP SIGINT"
 fi
 
 ######## End Stuff needed for portable_env to work #####
