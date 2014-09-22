@@ -21,6 +21,8 @@ Notes
 * This script traps all files than it copies and removes them on exit
 * running setup creates ~/.portable_env, symlinks dotfiles/* into ~/.portable_env and symlinks the script portable_env to /usr/bin/cs
 * Tested on mavericks and Fedora 
+
+
 License
 =======
 BSD 
