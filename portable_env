@@ -1,12 +1,10 @@
 #!/bin/bash
-#TODO place the dot files in their own dir and rm the dir if it is emptly (last one out)
-#TODO see if I can get vundle enabled somewhat easily
-#TODO ssh -o SendEnv=MYVAR server.example.com mycommand (send envar to generate the sessionid) 
-#Sometimes ssh restrics SendEnv... look into this first. 
 
-#create a random var so that multiuser works.
-#unset session
-session="$RANDOM"
+#TODO see if I can get pathogen enabled somewhat easily
+#REMINDER ssh -o SendEnv=MYVAR server.example.com mycommand (could send envar to generate the sessionid) Sometimes ssh restrics SendEnv... look into this first. 
+
+#The temporary files for your session will live in a directory on the remote machine named $session 
+session=""$USER""$RANDOM""
 
 #if you call $0 -s this runs.
 setup () 
@@ -56,20 +54,14 @@ cs ()
     connect="$@"
   fi
 
-  #copy files.
-  echo -n "Copying Files ."
-  for x in ~/.portable_env/*
-   do
-    scp "$x" "$connect":~/".""$session""$(basename "$x")" 2>&1 >/dev/null && echo -n "."
-    if [[ $? != 0 ]]; then echo "Could not connect" &&  exit 1
-    fi
-
-  done
-  echo
-
 #Let's do this
-ssh -t "$connect" "echo "$session" > ~/.session && bash --noprofile --rcfile ~/."$session"bashrc" 
-
+  ssh -t "$connect" "
+  mkdir "$session"
+  echo "$session" > ~/.session 
+  session="$session" 
+  echo $'"$(cd ~/.portable_env && tar -chz * | xxd -ps)"' | xxd -ps -r | tar mxz -C "'$session'"/
+  bash --noprofile --rcfile ~/"$session"/bashrc
+  "
 }
 
 usage () 

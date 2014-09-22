@@ -1,48 +1,49 @@
 ###### Stuff needed for portable_env to work #######
 if [[ -f ~/.session ]]; then 
   session=$(< ~/.session)
-  echo $session > ~/."$session"sessionid
   rm -f ~/.session
-  session=$(< ~/."$session"sessionid)
+echo "sessionid is $session"
+#  echo $session > ~/"$session"/sessionid
+#  session=$(< ~/"$session"/sessionid)
 fi
 
 #trap all files on exit only trap if session is set 
-if ! [[ -z "$session" ]]; then
-trap "rm -f ~/"."$session"* EXIT SIGHUP SIGTERM
+if ! [[ -d "~/"$session"" ]]; then
+  trap "rm -rf ~/$session" EXIT SIGTERM SIGHUP
+  echo "trap is: trap -s ~/$session EXIT SIGTERM SIGHUP"
 fi
+
 ######## End Stuff needed for portable_env to work #####
 
 ###BEGIN Portable rcfile###
 
 #Example of how to run other scripts on login
-if [[ -f ~/."$session"screenfetch ]]; then
-bash ~/."$session"screenfetch
+if [[ -f ~/"$session"/screenfetch ]]; then
+bash ~/"$session"/screenfetch
 fi
 
 ##example of how to run a script only when the tty is interactive
 if [[ $- == *i* ]]; then
-  tty=$(tty); w -h | awk -vmaxtime=5 -vtty=${tty#/*/} -f ~/."$session"getusers -
+  tty=$(tty); w -h | awk -vmaxtime=5 -vtty=${tty#/*/} -f ~/"$session"/getusers -
 fi
 
 #example alias (for your vimrc)
 if [[ -f ~/."$session"vimrc ]]; then
     alias v="vim"
-    export MYVIMRC=~/."$session"vimrc
+    export MYVIMRC=~/"$session"/vimrc
 fi
 
 complete -F _known_hosts ssh
 
-
 ##begin my personal bashrc in earnest (im not going to maintain two repos, if you like it fork it.)
 
-
 #better directory naviation
-source ${HOME}/."$session"acd_func.sh
-
+source ${HOME}/"$session"/acd_func.sh
 
 #set vi mode for glory
 set -o vi
 export EDITOR='vim'
+
 #use vim to view man pages
 #This breaks on some systems, commenting out for now
 #export MANPAGER="/bin/sh -c \"col -b | vim -u ~/.$session\"vimrc\" -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
@@ -61,9 +62,9 @@ function fname() { find . -iname "*$@*"; }
 function remove_lines_from() { grep -F -x -v -f $2 $1; }
 function mcd() { mkdir $1 && cd $1; }
 
-alias v='vim'
 #only need this on osx
 #alias sudo='sudo '
+
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -73,41 +74,6 @@ alias g='grep --color=auto'
 alias h='history'
 alias gits='puppet parser validate $(git ls-files --others --exclude-standard) \
 && git status'
-#
-##Improve nagiavation with cd back and flip
-#############################
-#pushd()
-#{
-#  if [ $# -eq 0 ]; then
-#    DIR="${HOME}"
-#  else
-#    DIR="$1"
-#  fi
-#
-#  builtin pushd "${DIR}" > /dev/null
-#  echo -n "DIRSTACK: "
-#  dirs
-#}
-#
-#pushd_builtin()
-#{
-#  builtin pushd > /dev/null
-#  echo -n "DIRSTACK: "
-#  dirs
-#}
-#
-#popd()
-#{
-#  builtin popd > /dev/null
-#  echo -n "DIRSTACK: "
-#  dirs
-#}
-#
-#alias cd='pushd'
-#alias back='popd'
-#alias flip='pushd_builtin'
-#############################
-#
 
 if [ -x /usr/bin/dircolors ]; then
 test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
