@@ -3,14 +3,12 @@ if [[ -f ~/.session ]]; then
   session=$(< ~/.session)
   rm -f ~/.session
 echo "sessionid is $session"
-#  echo $session > ~/"$session"/sessionid
-#  session=$(< ~/"$session"/sessionid)
 fi
 
 #trap all files on exit only trap if session is set 
 if ! [[ -d "~/"$session"" ]]; then
   trap "rm -rf ~/$session" EXIT SIGTERM SIGHUP
-  echo "trap 2is: trap -s ~/$session EXIT SIGTERM SIGHUP SIGINT"
+  echo "trap is: trap rm -rf ~/$session EXIT SIGTERM SIGHUP SIGINT"
 fi
 
 ######## End Stuff needed for portable_env to work #####
@@ -28,10 +26,12 @@ if [[ $- == *i* ]]; then
 fi
 
 #example alias (for your vimrc)
-if [[ -f ~/."$session"vimrc ]]; then
-    alias v="vim"
+if [[ -f ~/"$session"/vimrc ]]; then
+    alias vim="vim -u ~/"$session"/vimrc"
     export MYVIMRC=~/"$session"/vimrc
 fi
+
+echo $MYVIMRC
 
 complete -F _known_hosts ssh
 
